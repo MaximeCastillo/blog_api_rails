@@ -9,7 +9,7 @@
 require 'faker'
 
 #Création de quelques users
-8.times do
+10.times do
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   User.create!(
@@ -20,7 +20,7 @@ end
 puts "-> quelques users fictifs ont été créés"
 
 # Création de quelques articles
-20.times do
+30.times do
   article = Article.create!(
     title: Faker::Lorem.sentence(word_count: 2),
     content: Faker::ChuckNorris.fact,
