@@ -15,6 +15,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'table_print'
+  gem 'dotenv'
 end
 
 group :development do

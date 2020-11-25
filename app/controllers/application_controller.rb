@@ -21,4 +21,17 @@ class ApplicationController < ActionController::API
     }, status: 400
   end
 
+  def verify_author
+    unless Article.find(params[:id]).user_id == current_user.id
+      render json: {
+      'errors': [
+        {
+          'status': '403',
+          'message': 'Interdit de toucher aux articles des autres !'
+        }
+      ]
+    }, status: 403
+    end
+  end
+
 end

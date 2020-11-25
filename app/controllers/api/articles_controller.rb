@@ -1,5 +1,7 @@
 class Api::ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :verify_author, only: [:edit, :update, :destroy]
 
   # GET /articles
   def index
@@ -15,10 +17,14 @@ class Api::ArticlesController < ApplicationController
 
   # POST /articles
   def create
-    @article = Article.new(article_params)
+    @article = Article.new(
+      title: article_params[:title],
+      content: article_params[:content],
+      user_id: current_user.id
+    )
 
     if @article.save
-      render json: @article, status: :created, location: @article
+      render json: @article, status: :created
     else
       render json: @article.errors, status: :unprocessable_entity
     end
