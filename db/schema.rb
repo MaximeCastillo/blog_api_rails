@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 2020_11_25_055524) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-  create_table "jwt_denylists", force: :cascade do |t|
-    t.string "jti"
-    t.datetime "expired_at"
-    t.index ["jti"], name: "index_jwt_denylists_on_jti"
+  create_table "jwt_denylist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
   create_table "users", force: :cascade do |t|
