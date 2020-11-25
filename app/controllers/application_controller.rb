@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
 
   rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
+  rescue_from ActiveRecord::NotNullViolation, with: :not_null_violation
 
   def render_jsonapi_response(resource)
     if resource.errors.empty?
@@ -32,6 +33,17 @@ class ApplicationController < ActionController::API
       ]
     }, status: 403
     end
+  end
+
+  def not_null_violation(message)
+    render json: {
+      'errors': [
+        {
+          'status': '403',
+          'message': message
+        }
+      ]
+    }, status: 403
   end
 
 end
